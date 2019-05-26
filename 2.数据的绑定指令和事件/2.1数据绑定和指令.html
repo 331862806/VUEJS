@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--文本插入值的用法-->
+    <hr>
+    {{msg}} <br>
+    {{6+6*3}} ---可以进行简单的运算 <br>
+    {{6>3 ?msg:a}} ---可以用三元运算符 <br>
+    <!--{{ if(6 > 3){}} &#45;&#45;&#45;&#45;注意：文本插值的形式，其中不能书写表达式，支持单个表达式 <br>-->
+    <!--{{var a = 6}} -&#45;&#45;&#45;&#45;也是多行表达式 &#45;&#45;&#45;&#45;var a; a=6; <br>-->
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            msg: 'vue学习开始了',
+            a: 2
+        },
+        created: function () {
+            // alert('我是vue实例，创建完成，还未挂载到DOM')
+        },
+        mounted: function () {
+            // alert('我是vue实例，已经挂载到DOM')
+        }
+    });
+    //--------------访问属性-----------------
+    //访问vue实例的属性
+    console.log(app.$el)
+    console.log(app.$data)
+    //访问data中的属性
+    console.log(app.msg)
+    console.log(app.a)
+
+
+</script>
+
+</body>
+</html>
