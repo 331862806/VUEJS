@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性</title>
+</head>
+<body>
+<div id="demo">
+    {{text}} <br>
+    {{text.split(',').reverse().join(',')}} <br>
+    ---------下面是使用计算属性得到的-------- <br>
+    {{reverseText}} <br>
+    <hr>
+    两个购物车总计 :{{prices}} <br>
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+    //需求:'123,456,789'变成 '789,456,123'
+    var app = new Vue({
+        el: '#demo',
+        data: {
+            text: '123,456,789',
+            //第一个购物车
+            package1: [
+                {
+                    name: 'iphone8', price: 5699, count: 2
+
+                },
+                {
+                    name: 'ipad', price: 3600, count: 2
+                }
+            ],
+            //第二个购物车
+            package2: [
+                {
+                    name: 'iphoneX', price: 7999, count: 2
+
+                },
+                {
+                    name: 'ipad', price: 3600, count: 2
+                }
+            ]
+        },
+        computed: {
+            // 如果计算属性后面直接跟着一个function.则默认为是getter函数
+            reverseText: function () {
+                return this.text.split(',').reverse().join(',');
+            },
+            prices: function () {
+                var prices = 0;
+                for (var i = 0; i < this.package1.length; i++) {
+                    prices +=this.package1[i].price*this.package1[i].count;
+                }
+                for (var j = 0; j < this.package2.length; j++) {
+                    prices+= this.package2[j].price *this.package2[j].count;
+                }
+                return prices;
+            }
+        }
+    });
+</script>
+</body>
+</html>

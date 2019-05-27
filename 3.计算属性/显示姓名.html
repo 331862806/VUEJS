@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显示姓名</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<div id="demo">
+    <hr>
+    计算属性的默认用法是getter函数 <br>
+    我的姓名是------{{fullName}}
+    <hr>
+    注意看 <br>
+    {{fullName1}}
+
+    <hr>
+    计算属性的缓存: <br>
+    {{now}} <br>
+    通过methods 拿到的时间戳: <br>
+    {{thistime()}}
+
+    <br>
+    只要页面重新渲染,方法就会重新执行
+
+</div>
+<script>
+    var app = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'zhang',
+            lastName: 'sanfeng'
+        },
+        computed: {
+            fullName: function () {
+                return this.firstName + " " + this.lastName;
+            },
+            fullName1: {
+                get: function () {
+                    return this.firstName + " " + this.lastName;
+                },
+                set: function (newValue) {
+                    //用逗号分隔 Liu,Bei
+                    console.log("这是set函数,我被调用了");
+                    var names = newValue.split('-');//分隔为数组
+                    this.firstName = names[0];
+                    this.lastName = names[1];
+                }
+            },
+            now: function () {
+                return new Date();
+            }
+
+        },
+        methods: {
+            thistime :function () {
+                return new Date();
+            }
+        }
+    });
+</script>
+</body>
+</html>
