@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+v-bind的作用是绑定活的属性
+<div id="app">
+    <a v-bind:href="url">ssssssss</a>
+    <img :src="imgUrl" alt="">
+</div>
+
+<script>
+    var app =new Vue({
+        el:'#app',
+        data:{
+            url:'http://www.baidu.com',
+            imgUrl:'https://www.baidu.com/img/superlogo_c4d7df0a003d3db9b65e9ef0fe6da1ec.png?where=super'
+
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns: xmlns:>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+</style>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+绑定内联样式:键代表style 的属性值,值就代表属性对应的值
+切记:vue中只要是大写字母,都会给你转化成 -加小写 <br>
+fontSize ---->font-size
+asdASSFsdfadF  ---> asd-a-s-s-fsdfad-f
+<div id="app">
+    font-size
+    fontSize
+    style对象语法 <br>
+    <div v-bind:style="{'color':color,'fontSize':fontSize+'px'}"> 看看我吧</div>
+    <hr>
+    style数组语法 <br>
+    <div v-bind:style="[]"> 看看我吧</div>
+
+</div>
+
+<script>
+    // 需求:点击一个按钮,来回切换背景颜色为红蓝
+    var app =new Vue({
+        el:'#app',
+        data:{
+            color:'red',
+            fontSize:30
+        }
+    })
+</script>
+</body>
+</html>

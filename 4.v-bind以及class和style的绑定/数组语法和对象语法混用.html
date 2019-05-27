@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns: xmlns:>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+</style>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+
+<div id="app">
+    数组和对象混用,第一个成员是对象
+    <div :class="[{active:isActive},errorClass]"></div>
+
+</div>
+
+<script>
+    // 需求:点击一个按钮,来回切换背景颜色为红蓝
+    var app =new Vue({
+        el:'#app',
+        data:{
+            isActive:true,
+            errorClass:'error'
+        }
+    })
+</script>
+</body>
+</html>
