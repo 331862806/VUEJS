@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染指令</title>
+</head>
+<body>
+<div id="app">
+    v-if 后接的是等号:等号后接的内容必须是布尔值 <br>
+    v-if 的基本用法: <br>
+    <p v-if="6<3">{{apple}}</p>
+    <p v-else-if="9>3">{{pineapple}}</p>
+    <p v-else>{{bannana}}</p>
+
+    <hr>
+    v-if的实例用法: <br>
+    需求: 点击按钮,实现用户名和密码输入框的切换 <br>
+    <div v-if="type==='name'">
+        用户名: <input type="text" placeholder="请输入用户名" >
+    </div>
+    <div v-else>
+        密码: <input type="text" placeholder="请输入密码">
+    </div>
+    <button v-on:click="toggleType">点我切换</button>
+
+    <br>
+    Vue 在渲染元素时 ，出于效率考虑，会尽可能地复用已有的元素而非重新渲染， 因
+    此会出现乌龙
+    只会渲染变化的元素，也就是说，input元素被复用了
+
+    <hr>
+    解决方法：加key，唯一，提供key值可以来决定是否复用该元素 <br>
+
+    <div v-if="type==='name'">
+        用户名: <input type="text" placeholder="请输入用户名" key="name">
+    </div>
+    <div v-else>
+        密码: <input type="text" placeholder="请输入密码" key="password">
+    </div>
+    <button v-on:click="toggleType">点我切换</button>
+
+
+    <hr>
+    v-show : 只改变了css属性display <br>
+    显现与否取决于布尔值
+    <hr>
+    v-if和v-show的比较: <br>
+    v-if: 实时渲染：页面显示就渲染，不显示。我就给你移除 <br>
+    v-show: v-show的元素永远存在也页面中，只是改变了css的display的属性 就是display=none<br>
+
+    <p v-show="9>a">我被渲染</p>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            apple:"apple",
+            bannana:'bannana',
+            pineapple:"pineapple",
+            type:'name',
+            a:18
+        },
+        methods:{
+            toggleType:function () {
+                //三目运算
+                this.type =(this.type ==='name' ?'password':'name' )
+            }
+        }
+    })
+</script>
+</body>
+</html>

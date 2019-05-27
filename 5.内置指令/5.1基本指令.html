@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本指令</title>
+</head>
+<body>
+<div id="app">
+    <hr>
+    v-cloak: 解决初始化慢导致页面闪动的最佳实践 <br>
+
+    <p v-cloak>{{msg}}</p> <br>
+
+    <hr>
+
+    v-once : 只渲染一次,后续都不会再渲染 <br>
+    <p v-once>{{oncedata}}</p> <br>
+
+    <hr>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            msg: '村里有个姑娘叫小芳',
+            oncedata: "长得美丽又善良"
+        }
+    })
+</script>
+</body>
+</html>
