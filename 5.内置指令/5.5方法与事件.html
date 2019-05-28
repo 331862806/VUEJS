@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>方法与事件</title>
+</head>
+<body>
+<div id="app">
+    {{count}}
+    <button @click="handle()">点击我+1</button>
+    <button @click="handle(8)">点击我+8</button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            count: 0
+        },
+        methods: {
+            handle: function (count) {
+                count = count || 1;
+                this.count += count;
+            }
+        }
+    })
+</script>
+</body>
+</html>

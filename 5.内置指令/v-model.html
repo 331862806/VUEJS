@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-model 指令</title>
+</head>
+<body>
+<div id="app">
+    <input v-model="message" placeholder="edit me">
+    <p>Message is: {{ message }}</p>
+    <hr>
+    <div v-for="item in arr">{{item}}</div>
+    <hr>
+    <div style="width:100px;height: 100px; background-color: red;" v-on:click="divClick">这是一个按钮</div>
+    <hr>
+    <div v-bind:class="className"></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+        var app =new Vue({
+            el:"#app",
+            data:{
+                message:'',
+                arr:["123","234","567"],
+                className:'demo'
+            },
+            methods:{
+                divClick:function () {
+                    alert("我被点击了")
+                }
+            }
+        })
+</script>
+</body>
+</html>

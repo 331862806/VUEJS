@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组更新</title>
+</head>
+<body>
+
+<div id="app">
+    <div v-for="study in arr">{{study}}</div>
+    <button @click="sortArr">点我排序</button>
+    <button @click="reverseArr">点我翻转</button>
+
+    <hr>
+    以下两种数组变动 vue检测不到 <br>
+    <button @click="changeOne">改变数组的指定项</button>
+    <button @click="changeLength">改变数组的长度</button>
+    <hr>
+    Vue.set(app.arr,1,"car") <br>
+    app.arr.splice(1) 改变数组长度 <br>
+
+    <hr>
+    返回字符串中含有oo的项 <br>
+    {{matchOO}}
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            arr: ['book', 'pen', 'pencil']
+        },
+        computed: {
+            matchOO: function () {
+                // 参数代表要过滤的每一个项
+                return this.arr.filter(function (value) {
+                    return value.match(/oo/)
+                })
+            }
+        },
+        methods: {
+            sortArr: function () {
+                this.arr.sort(function (a, b) {
+                    return a.length - b.length;
+                })
+            },
+            reverseArr: function () {
+                this.arr.reverse();
+            },
+            // 改变数组的指定项
+            changeOne: function () {
+                this.arr[0] = 'cat';
+            },
+            //改变数组的长度
+            changeLength: function () {
+                this.arr.length = 1;
+            }
+        }
+    })
+
+    //改变vue的第一项 全局变量
+    Vue.set(app.arr, 1, "car")
+</script>
+</body>
+</html>

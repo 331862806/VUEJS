@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修饰符</title>
+</head>
+<body>
+<div id="app">
+    向上冒泡 <br>
+    button 被点击,div也是被点击
+    <div @click="divClick" style="width: 100px;height: 100px;background-color: red;">
+        <button @click="btnClick">点击按钮</button>
+    </div>
+    <hr>
+    stop 用法: 阻止单击事件向上冒泡
+    <div @click="divClick" style="width: 100px;height: 100px;background-color: red;">
+        <button @click.stop="btnClick">点击按钮</button>
+    </div>
+    <hr>
+    prevent 用法: 提交事件并且不重载页面
+    每次提交表单都会重载页面
+    <form action="">
+        <button type="submit">提交表单</button>
+    </form>
+
+    <hr>
+    <form action="" @submit.prevent="handle">
+        <button type="submit">提交表单</button>
+    </form>
+
+
+    <hr>
+    self 用法: 只是作用在元素本身,而非子元素的时候调用 <br>
+    <div @click.self="divClick" style="width: 100px;height: 100px;background-color: red;">
+        <button @click="btnClick">点击按钮</button>
+    </div>
+
+    <hr>
+    once 用法: 只执行一次的方法 <br>
+
+    <button @click="oneOnce">点击按钮,执行N次</button>
+    <br>
+    <button @click.once="oneOnce">点击按钮,只执行一次</button>
+
+    <hr>
+    监听键盘事件 <br>
+    <input type="text" @keyup.13="submitMe">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+            divClick: function () {
+                alert("div被点击了");
+            },
+            btnClick: function () {
+                alert("Button被点击了")
+            },
+            handle: function () {
+                alert("我不重载了,页面不刷新了")
+            },
+            oneOnce: function () {
+                alert("执行多少次")
+            },
+            submitMe: function () {
+                alert("按下 回车键")
+            }
+        }
+    })
+</script>
+</body>
+</html>
