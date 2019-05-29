@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据验证</title>
+</head>
+<body>
+<style>
+    #app {
+        border: 2px solid red;
+        width: 900px;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+</style>
+
+<div id="app">
+    在html中 不允许使用驼峰命名!!!! <br>
+    1. 在Html中,'myMessage'和'mymessage'是一致的,因此在组件中的html中使用必须使用kebab-case(短横线)的命名方式 <br><br>
+
+    2. 在组件中,父组件给子组件传递数据必须使用短横线.在template中,必须使用驼峰命名方式.若为短横线的命名方式.则会报错 <br><br>
+
+    3. 在组件的data中,用this.xxx 引用时,只能使用驼峰命名的方式,若为短横线的命名方式,则会报错. <br><br>
+    <hr>
+    <!--vue.js:597 [Vue warn]: Unknown custom element: <mycomponent> -->
+    <!--<myComponent></myComponent>-->
+    <my-component my-msg="lalala"></my-component>
+    <hr>
+
+    <type-component :a="a" :b="b" :c="c" :d="d" :f="f" :g="g"></type-component>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    Vue.component('myComponent', {
+        props: ['myMsg'],
+        // template: '<div>{{myMsg}}</div>'
+        template: '<div>{{abc}}</div>',
+        data: function () {
+            return {abc: this.myMsg}
+        }
+
+    });
+
+    Vue.component('typeComponent', {
+        props: {
+            a: String,
+            b: [String, Number],
+            //必须是布尔类型,默认是true
+            c: {
+                type: Boolean,
+                default: false
+            },
+            d: {
+                type: Number,
+                required: true
+            },
+            e: {
+                type: Array,
+                default: function () {
+                    return [666];
+                }
+            },
+            //自定义一个验证函数
+            f: {
+                validator: function (value) {
+                    return value < 10;
+                }
+            },
+            g:{
+                type:Function
+            }
+
+        },
+        // template: '<div>{{myMsg}}</div>'
+        template: '<div>{{a}} ---{{b}} ---{{c}} ---{{d}}---{{e[0]}} ---{{f}}</div>',
+        data: function () {
+            return {abc: this.myMsg}
+        }
+
+    });
+
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            a: '1',
+            b: 666,
+            c: true,
+            d: 4562635,
+            e: [],
+            f: 3,
+            g: console.log()
+        }
+
+    })
+</script>
+</body>
+</html>

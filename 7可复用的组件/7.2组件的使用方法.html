@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app" style="border: 2px solid red;">
+    <my-component></my-component>
+    <app-component></app-component>
+
+    <br>
+    table 中只能有tr/td/tbody这些元素 <br>
+    所以直接在table中使用组件是无效的，此时可以使用is属性来挂载组件
+
+    <hr>
+    <table>
+        <!--<app-component></app-component>-->
+        <tbody is="app-component"></tbody>
+    </table>
+</div>
+
+<div id="bpp" style="border: 2px solid chartreuse; margin-top: 5px;">
+    <my-component></my-component>
+    <app-component></app-component>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    // Vue.component(tag,{
+    //     template:'<div></div>'
+    // })
+    //全局注册组件:
+    //优点:所有的vue实例都可以用
+    //缺点:权限太大,容错率降低
+
+    Vue.component('my-component',{
+        template:"<div>我是一个组件</div>"
+    });
+    var app =new Vue({
+        el:'#app',
+        components:{
+            'app-component':{
+                template:"<div>我是app局部注册的一个组件</div>"
+            }
+        },
+        data:{}
+    });
+
+    var bpp =new Vue({
+        el:'#bpp',
+        data:{}
+    })
+
+</script>
+</body>
+</html>

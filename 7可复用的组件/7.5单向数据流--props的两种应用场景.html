@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单向数据流</title>
+</head>
+<body>
+<style>
+    #app {
+        border: 2px solid black;
+        width: 900px;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+</style>
+
+<div id="app">
+    <hr>
+    <br>-------------------第一种情况-------------------<br>
+    1.父组件传递初始值进来,子组件将它作为初始值保存起来,在自己的作用域下可以随意使用和修改. <br>
+    这种情况可以在data内再声明一个数据,引用父组件的prop <br>
+    步骤1: 注册组件 <br>
+    步骤2: 将父组件的数据传递进来,并在子组件中用props接收 <br>
+    步骤3: 将传递进来的数据通过初始值保存起来 <br>
+    实例: <br>
+    <my-component msg="我是父组件传递的数据"></my-component>
+    <br><br><br>
+    <br>-------------------第二种情况-------------------<br>
+    2.就是 prop 作为需要被转变的原始值传入.这种情况用计算属性就可以了.<br>
+    步骤1:注册组件 <br>
+    步骤2:将父组件的数据传递进来,并在子组件中用props接收 <br>
+    步骤3:将传递进来的数据通过计算属性来进行重新计算 <br>
+    <br>
+    需求:通过input中输入的数据直接改变div的宽度 <br>
+    <input type="text" v-model="width">
+    <width-component v-bind:width="width"></width-component>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    //将传递进来的数据作为初始值进行保存
+    //注册组件
+    Vue.component('my-component', {
+        props: ['msg'],
+        template: '<div>我是一个组件</div>',
+        data: function () {
+            return {
+                // props 中的值可以通过 this.xxx 直接来进行获取
+                count: this.msg
+            }
+        }
+
+    });
+    // width
+    Vue.component('width-component', {
+        props: ['width'],
+        template: '<div :style="style"></div>',
+        data: function () {
+            return {}
+        },
+        computed: {
+            style: function () {
+                //直接计算
+                return {
+                    width: this.width + 'px',
+                    backgroundColor:'red',
+                    height:'30px'
+                }
+            }
+        }
+
+    });
+    var app = new Vue({
+        el: '#app',
+        data: {width: 0}
+
+    })
+</script>
+</body>
+</html>
