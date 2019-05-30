@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义指令</title>
+</head>
+<body>
+<style>
+    #app {
+        border: 2px solid red;
+        width: 600px;
+        height: 300px;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+</style>
+
+<div id="app">
+    获取焦点: <input type="text" v-focus> <br>
+    <input type="text">
+    <hr>
+    //自定义指令
+    <div v-cuihua:goudan.a.b.c="abcde">
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    Vue.directive('focus', {
+        //指令的选项 插入到父节点的时候就调用
+        inserted: function (el) {
+            el.focus();
+        }
+    });
+
+    Vue.directive('cuihua', {
+        //指令的选项 第一次使用的时候就调用
+        bind: function (el, binding,vnode) {
+            var keys =[];
+            for (var key in vnode) {
+                keys.push(key)
+            }
+
+            el.innerHTML =
+                'name' + '----' + binding.name + '<br>' +
+                'value' + '----' + binding.value + '<br>' +
+                'expression' + '----' + binding.name + '<br>' +
+                'argument' + '----' + binding.arg + '<br>' +
+                'modifiers' + '----' + JSON.stringify(binding.modifiers) + '<br>'+
+                'vnodes中的keys' + '----' + keys.join("--") + '<br>'
+        }
+    });
+
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            abcde: '我是value', obq: '我是自定义指令'
+        }
+    })
+</script>
+</body>
+</html>
