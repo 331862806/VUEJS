@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>子组件给父组件传递数据</title>
+    <title>作用域插槽</title>
 </head>
 <body>
 <style>
@@ -11,15 +11,24 @@
         width: 600px;
         height: 300px;
         font-weight: 700;
-        font-size: 16px;
+        font子-size: 16px;
         padding: 3px;
         margin: 0 auto;
         margin-top: 100px;
     }
 </style>
 
-<div id="app" >
+<div id="app">
+    作用域插槽是一种特殊的slot，使用一个可以复用的模板来替换已经渲染的元素 <br>
+    <hr>
+    <my-component>
+        <template slot="abc" slot-scope="prop">
+            {{prop.text}}
+            {{prop.name}}
+            {{prop.ss}}
 
+        </template>
+    </my-component>
 
 </div>
 
@@ -27,7 +36,7 @@
 
 <script>
     Vue.component('my-component', {
-        template: '<div>我是一个组件</div>',
+        template: '<div><slot text="我是来自子组件的数据" ss="sadasd" name="abc"></slot></div>',
 
     });
 

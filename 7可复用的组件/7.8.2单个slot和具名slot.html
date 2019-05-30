@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单个slot和具名slot</title>
+</head>
+<body>
+<style>
+    #app {
+        border: 2px solid red;
+        width: 600px;
+        height: 300px;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+</style>
+
+
+<div id="app">
+    父组件的内容与子组件相混合，从而弥补了视图的不足 <br>
+    混合父组件的内容与子组件自己的模板
+    <hr>
+    单个插槽: <br>
+    <my-component>
+        <p>{{message}}</p>
+    </my-component>
+    <hr>
+    具名插槽: <br>
+    <name-component>
+        <h3 slot="header">我是标题</h3>
+        <p>我是正文内容</p>
+        <p>正文内容有两段</p>
+        <p slot="footer">我是底部信息</p>
+    </name-component>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    Vue.component('my-component', {
+        template: '<div>\
+                    <slot>如果父组件没有内容,我就作为默认出现</slot>\
+                   </div>'
+    });
+
+    Vue.component('name-component', {
+        template: '<div>\
+                    <div class="header">\
+                        <slot name="header"></slot>\
+                    </div>\
+                    <div class="main">\
+                        <slot></slot>\
+                    </div>\
+                    <div class="footer">\
+                        <slot name="footer"></slot>\
+                    </div>\
+                   </div>'
+    });
+
+
+    var app = new Vue({
+        el: '#app',
+        data: {message: '你好啊 '}
+    })
+</script>
+</body>
+</html>

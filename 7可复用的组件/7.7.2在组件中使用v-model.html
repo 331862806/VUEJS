@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在组件中使用v-model</title>
+</head>
+<body>
+<style>
+    #app{
+        border: 2px solid red;
+        width: 600px;
+        height: 300px;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+</style>
+
+<div id="app">
+    你现在的银行卡余额是:{{total}} <br>
+    <!--<my-component @change="handleTotal"></my-component>-->
+    <my-component v-model="total"></my-component>
+    <hr>
+    v-model --- 其实就是绑定了input事件,当触发input事件的时候,input事件就会自动接收传递过来的参数
+    ,并赋值给已经绑定的total
+    <hr>
+    $emit 的代码,实际就是会触发input事件,'input'事件候的参数就是传递给 v-model 绑定的属性的值 <br>
+    v-model就是一个语法糖,这背后其实做了两个操作 <br>
+    1. v-bind 绑定一个value属性 <br>
+    2. v-on指令给当前元素绑定input 事件
+    <br>
+    要使用v-model要做到: <br>
+    1. 接收一个value的值 <br>
+    2. v-on指令给当前元素绑定input事件. <br>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    Vue.component('my-component', {
+        template: '<div>\
+            <button @click="handleincrease">+1000</button>\
+            </div>',
+        data: function () {
+            return {
+                count: 2000
+            }
+        },
+        methods: {
+            handleincrease: function () {
+                this.count = this.count + 1000;
+                // this.$emit('change', this.count)
+                this.$emit('input', this.count)
+            }
+        }
+
+    });
+
+
+    var app=new Vue({
+        el:'#app',
+        data:{
+            total:2000
+        },
+        methods:{
+
+        }
+    })
+</script>
+</body>
+</html>
