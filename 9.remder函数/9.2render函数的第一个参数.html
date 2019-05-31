@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>render函数的第一个参数</title>
+</head>
+<body>
+<style>
+    #app {
+        border: 2px solid red;
+        width: 600px;
+        height: 300px;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+</style>
+
+<div id="app">
+    在render 函数中,参数必须是createElement ,createElement的类型是Function <br>
+    render 函数里面的第一个参数可以是 String | Object | Function <br>
+
+    <child>
+
+    </child>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    Vue.component("child", {
+        //第一个参数必选
+        // String ----Html的标签
+        // Object ----一个含有数据选项的对象
+        // Function---方法返回含有数据选项的对象
+        render: function (createElement) {
+            // return createElement('span')
+            // return createElement({
+            //     template:'<span>锄禾日当午 </span>'
+            // })
+            alert(typeof createElement)
+            var domFun =function () {
+                return{
+                    template:'<span>粒粒皆辛苦 </span>'
+                }
+            };
+            return createElement(domFun())
+        }
+    });
+
+
+    var app = new Vue({
+        el: '#app',
+        data: {}
+    })
+</script>
+</body>
+</html>

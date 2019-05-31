@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this.$slots在render函数中的应用</title>
+</head>
+<body>
+<style>
+    #app{
+        border: 2px solid red;
+        width: 600px;
+        height: 300px;JACKsaddsadsa asdas
+        font-weight: 700;
+        font-size: 16px;
+        padding: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+</style>
+
+<div id="app">
+    <my-component>
+        <p>锄禾日当午</p>
+        <p>汗滴禾下土</p>
+        <h3 slot="header">我是标题</h3>
+        <h5 slot="footer">我是文章的最后一段</h5>
+    </my-component>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    //第三个 参数存的就是 vnode
+    Vue.component('my-component', {
+        render:function (createElement) {
+            // debugger
+            var header =this.$slots.header; // 这返回的内容就是含有 =vnode的数组
+            var main =this.$slots.default;
+            var footer =this.$slots.footer;
+            return createElement('div',[
+                createElement('header',header),
+                createElement('main',main),
+                createElement('footer',footer)
+            ])
+        }
+
+    });
+
+
+    var app=new Vue({
+        el:'#app',
+        data:{}
+    })
+</script>
+</body>
+</html>

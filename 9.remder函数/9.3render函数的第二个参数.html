@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>render函数的第二个参数</title>
+</head>
+<body>
+<style>
+    #app {
+        border: 2px solid red;
+        width: 600px;
+        height: 300px;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+</style>
+
+<div id="app">
+
+
+    <child>
+
+    </child>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    Vue.component("child", {
+        // -----第二个参数可选 第二个参数是数据对象---只能是Object
+        render: function (createElement) {
+            return createElement({
+                template: "<div>我是龙的传人</div>"
+            }, {
+                class: {
+                    foo: true,
+                    baz: false
+                },
+                style: {
+                    color: 'red',
+                    fontSize: '16px'
+                },
+                // 正常的 html 特性
+                attrs: {
+                    id: 'foo',
+                    src:'http://www.baidu.com'
+                },
+                // 用来写原声dom的属性
+                domProps:{
+                    innerHTML:'<span style="color:blue; font-size: 16px;">我是蓝色</span>'
+                }
+            })
+        }
+    });
+
+
+    var app = new Vue({
+        el: '#app',
+        data: {}
+    })
+</script>
+</body>
+</html>

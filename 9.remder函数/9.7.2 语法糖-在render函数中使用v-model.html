@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-model在render函数中的应用</title>
+</head>
+<body>
+<style>
+    #app {
+        border: 2px solid red;
+        width: 600px;
+        height: 300px;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+</style>
+
+<div id="app">
+    <!--<my-component :name="name" @input="showName"></my-component>-->
+    <my-component :name="name" v-model="name"></my-component>
+    <br>{{name}}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    //需求:
+    Vue.component('my-component', {
+        render: function (createElement) {
+            // debugger
+            var self = this; //指的就是当前的Vue实例
+            return createElement('input', {
+                domProps: {
+                    value: self.name
+                },
+                on: {
+                    input: function (event) {
+                        // debugger
+                        // var a= this;
+                        //这里面的this是是什么
+                        // this.$emit() 这个this指的是 window
+                        self.$emit('input', event.target.value)
+                    }
+                }
+            })
+        },
+        props: ['name']
+
+    });
+
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            name: 'JACK'
+        }
+        // methods: {
+        //     showName: function (value) {
+        //         this.name = value
+        //     }
+        // }
+    })
+</script>
+</body>
+</html>
