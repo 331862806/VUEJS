@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style type="text/css">
+    * {
+        margin: 0 auto;
+        text-align: center;
+        line-height: 40px;
+    }
+
+    div {
+        width: 100px;
+        cursor: pointer;
+    }
+
+    .grandFather {
+        background: green;
+    }
+
+    .father {
+        background: blue;
+    }
+
+    .me {
+        background: red;
+    }
+
+    .son {
+        background: gray;
+    }
+</style>
+
+<div id="content">
+    正常冒泡
+    <div class="grandFather" id="grandFather" v-on:click="doc">
+        grandFather
+        <div class="father" id="father" v-on:click="doc">
+            father
+            <div class="me" id="me" v-on:click="doc">
+                me
+                <div class="son" id="son" v-on:click="doc">
+                    son
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="margin: 20px;">
+    stop
+    <div class="grandFather" id="grandFather2" v-on:click="doc">
+        grandFather
+        <div class="father" id="father2" v-on:click="doc">
+            father
+            <div class="me" id="me2" v-on:click.stop="doc">
+                me
+                <div class="son" id="son2" v-on:click="doc">
+                    son
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="margin: 20px;">
+    capture
+    <div class="grandFather" id="grandFather3" v-on:click="doc">
+        grandFather
+        <div class="father" id="father3" v-on:click.capture="doc">
+            father
+            <div class="me" id="me3" v-on:click="doc">
+                me
+                <div class="son" id="son3" v-on:click="doc">
+                    son
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="margin: 20px;">
+    self
+    <div class="grandFather" id="grandFather4" v-on:click="doc">
+        grandFather
+        <div id="father4" class="father" v-on:click.self="doc">
+            father
+            <div id="me4" class="me" v-on:click="doc">
+                me
+                <div class="son" id="son4" v-on:click="doc">
+                    son
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="div1">
+
+    <a href="http://12306.com" @click="jump">正常的链接 http://12306.com</a>
+    <br>
+    <a href="http://12306.com" @click.prevent="jump">prevent jump()之后的链接 http://12306.com</a>
+    <br>
+    <a href="http://12306.com" @click.prevent>纯prevent之后的链接 http://12306.com</a>
+
+    <br>
+    <br>
+    <form @submit="jump" action="http://12306.com">
+        <button type="submit">正常的form</button>
+    </form>
+    <form @submit.prevent="jump" action="http://12306.com">
+        <button type="submit">prevent jump()之后的form</button>
+    </form>
+    <form @submit.prevent action="http://12306.com">
+        <button type="submit">纯prevent之后的form</button>
+    </form>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script>
+    var content = new Vue({
+        el: "#content",
+        data: {
+            id: ''
+        },
+        methods: {
+            doc: function () {
+                this.id = event.currentTarget.id;
+                alert(this.id)
+            }
+        }
+    })
+
+    new Vue({
+        el: '#div1',
+        data: {},
+        methods: {
+            jump: function () {
+                alert("jump()函数被调用");
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
