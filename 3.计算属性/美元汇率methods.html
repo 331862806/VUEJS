@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<style>
+    table tr td{
+        border:1px solid gray;
+        padding:10px;
+
+    }
+    table{
+        border-collapse:collapse;
+        width:800px;
+        table-layout:fixed;
+    }
+    tr.firstLine{
+        background-color: lightGray;
+    }
+</style>
+
+<div id="div1">
+
+    <table align="center" >
+        <tr class="firstLine">
+            <td>人民币</td>
+            <td>美元</td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+                汇率： <input type="number" v-model.number="exchange" />
+            </td>
+        </tr>
+
+        <tr>
+
+            <td align="center">
+                ￥: <input type="number" v-model.number = "rmb"  />
+            </td>
+            <td align="center">
+                $: {{ getDollar() }}
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<script>
+
+    new Vue({
+        el: '#div1',
+        data: {
+            exchange:6.4,
+            rmb:0
+        },
+        methods:{
+            getDollar:function() {
+                return this.rmb / this.exchange;
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
